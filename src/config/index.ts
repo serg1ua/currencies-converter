@@ -2,17 +2,17 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export interface IConfig {
-  NODE_ENV: string,
-  PORT: string | number,
-  RAPIDAPI_KEY: string,
-  URL: string,
-  RAPIDAPI_HOST: string,
-  userEmail: string,
-  serviceEmail: string,
-  googleClientId: string,
-  googleClientSecret: string,
-  googleRefreshToken: string,
-  googleOauthRedirectUrl: string
+  NODE_ENV: string;
+  PORT: string | number;
+  RAPIDAPI_KEY: string;
+  URL: string;
+  RAPIDAPI_HOST: string;
+  userEmail: string;
+  serviceEmail: string;
+  googleClientId: string;
+  googleClientSecret: string;
+  googleRefreshToken: string;
+  googleOauthRedirectUrl: string;
 }
 
 const config: IConfig = {
@@ -28,5 +28,7 @@ const config: IConfig = {
   googleRefreshToken: process.env.GOOGLE_REFRESH_TOKEN,
   googleOauthRedirectUrl: process.env.GOOGLE_OAUTH_REDIRECT_URL,
 };
+
+export const emailRe = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default config;

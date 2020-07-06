@@ -1,17 +1,20 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { ConverterService } from './converter.service';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { IResponse } from './interfaces/converter.interfaces';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { CurrencyRequest } from './dto/currency-request.dto';
+import { CurrencyResponse } from './dto/currency-response.dto';
 
 @ApiTags('Currencies-converter')
 @Controller('converter')
 export class ConverterController {
   constructor(private readonly converter: ConverterService) {}
-  @Get(':query')
-  @ApiOperation({
-    summary: 'Example of query string: ?amount=10&from=USD&to=UAH',
+  @Post()
+  @ApiResponse({
+    status: 200,
+    description: 'Response from the converter',
+    type: CurrencyResponse,
   })
-  public getRate(@Param('query') query: string): Promise<IResponse> {
-    return this.converter.getRate(query);
+  public getRate(@Body() dto: CurrencyRequest): Promise<CurrencyResponse> {
+    return this.converter.getRate(dto);
   }
 }

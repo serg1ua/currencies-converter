@@ -15,7 +15,7 @@ const {
 
 @Injectable()
 export class EmailService {
-  private oauth2Client =  new OAuth2(
+  private oauth2Client = new OAuth2(
     googleClientId,
     googleClientSecret,
     googleOauthRedirectUrl,

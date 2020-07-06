@@ -5,7 +5,7 @@
 
   1. NODE_ENV=[dev, production]
   2. PORT=3000
-  3. RAPIDAPI_KEY=347f77c644msh62b7bb0cd51a660p1460cfjsncd83fd6af691
+  3. RAPIDAPI_KEY=<rapidapi_key>
   4. GOOGLE_EMAIL=<example@gmail.com>
   5. GOOGLE_CLIENT_ID=<client_id>
   6. GOOGLE_CLIENT_SECRET=<client_secret>
@@ -33,9 +33,14 @@ npm run prod
 ```
 Navigate to http://localhost:3000/api
 
-## Query string example:
+## Request body example:
 
-```shell
-?amount=10&from=USD&to=UAH
+```json
+{
+  "amount": 10,
+  "from": "USD",
+  "to": "UAH",
+  "email": "string@gmail.com"
+}
 ```
 
