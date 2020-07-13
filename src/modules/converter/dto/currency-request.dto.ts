@@ -1,15 +1,30 @@
+import {
+  IsPositive,
+  IsString,
+  IsNotEmpty,
+  IsEmail,
+  ValidateIf,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CurrencyRequest {
   @ApiProperty()
-  public amount: number;
+  @IsNotEmpty()
+  @IsPositive()
+  amount: number;
 
   @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   from: string;
 
   @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   to: string;
 
   @ApiPropertyOptional()
+  @ValidateIf(o => typeof o.email === 'string')
+  @IsEmail()
   email?: string;
 }

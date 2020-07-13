@@ -19,7 +19,7 @@ const config: IConfig = {
   NODE_ENV: process.env.NODE_ENV,
   PORT: process.env.PORT,
   RAPIDAPI_KEY: process.env.RAPIDAPI_KEY,
-  URL: 'https://currency-converter5.p.rapidapi.com/currency/convert',
+  URL: 'https://currency-converter5.p.rapidapi.com/currency',
   RAPIDAPI_HOST: 'currency-converter5.p.rapidapi.com',
   userEmail: 'example@example.com',
   serviceEmail: process.env.GOOGLE_EMAIL,
@@ -28,7 +28,5 @@ const config: IConfig = {
   googleRefreshToken: process.env.GOOGLE_REFRESH_TOKEN,
   googleOauthRedirectUrl: process.env.GOOGLE_OAUTH_REDIRECT_URL,
 };
-
-export const emailRe = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default config;

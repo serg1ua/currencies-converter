@@ -1,14 +1,9 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import axios from 'axios';
 import { CurrencyRequest } from './dto/currency-request.dto';
-import { CurrencyResponse } from './dto/currency-response.dto';
+import { Currencies, CurrencyRate } from './entity';
 import { EmailService } from '../email/email.service';
 import config from '../../config';
-import { CONSTANTS } from '../../config/constants';
 
 const { URL, RAPIDAPI_KEY, RAPIDAPI_HOST } = config;
 const headers = {
@@ -21,17 +16,23 @@ const headers = {
 @Injectable()
 export class ConverterService {
   constructor(private readonly emailService: EmailService) {}
-  public async getRate(dto: CurrencyRequest): Promise<CurrencyResponse> {
-    const { amount: amountStr, from, to, email } = dto;
-    if (!amountStr || !from || !to) {
-      throw new BadRequestException('Invalid input');
+  public async getList(): Promise<Currencies> {
+    try {
+      const res = await axios({
+        method: 'GET',
+        url: `${URL}/list`,
+        headers,
+        params: { format: 'json' },
+      });
+      const result: Currencies = res.data;
+      return result;
+    } catch (err) {
+      throw new InternalServerErrorException(err);
     }
-    if (isNaN(amountStr) || Number(amountStr) <= 0) {
-      throw new BadRequestException(
-        'Invalid input: Amount should be a positive number',
-      );
-    }
-    const amount = Number(amountStr);
+  }
+
+  public async getRate(dto: CurrencyRequest): Promise<CurrencyRate> {
+    const { amount, from, to, email } = dto;
     const params: CurrencyRequest = {
       amount,
       from,
@@ -41,7 +42,7 @@ export class ConverterService {
     try {
       res = await axios({
         method: 'GET',
-        url: URL,
+        url: `${URL}/convert`,
         headers,
         params: Object.assign({ format: 'json' }, params),
       });
@@ -50,12 +51,9 @@ export class ConverterService {
     }
     // send email if provided, don't wait for response or error
     if (email) {
-      if (!CONSTANTS.emailRe.test(email)) {
-        throw new BadRequestException('Invalid input: invalid email');
-      }
       this.emailService.sendEmail(JSON.stringify(res.data));
     }
-    const response: CurrencyResponse = res.data;
+    const response: CurrencyRate = res.data;
     return response;
   }
 }

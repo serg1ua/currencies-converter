@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CurrencyResponse {
+export class CurrencyRate {
   @ApiProperty()
   amount: number;
 
@@ -12,6 +12,8 @@ export class CurrencyResponse {
 
   @ApiProperty()
   rates: any;
+
+  @ApiProperty()
   status: string;
 
   @ApiProperty()

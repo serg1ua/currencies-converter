@@ -1,7 +1,7 @@
 # Currency Conversion Server
 
 ## Environment
-**1. Create .env file in root directory**
+**1. Create .env, .env.production files in root directory**
 
   1. NODE_ENV=[dev, production]
   2. PORT=3000
@@ -43,4 +43,5 @@ Navigate to http://localhost:3000/api
   "email": "string@gmail.com"
 }
 ```
+Notice: "to" property can be one currency code like "UAH", or comma separated string of currency codes: "UAH, PLN, EUR"
 

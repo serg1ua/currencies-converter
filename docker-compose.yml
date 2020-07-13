@@ -3,6 +3,6 @@ services:
   server:
     build: .
     image: currency_converter
-    env_file: .env
+    env_file: .env.production
     ports:
       - "3000:3000"
